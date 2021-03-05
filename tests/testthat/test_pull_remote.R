@@ -40,3 +40,14 @@ test_that("Error for no to", {
                            password = "zEF-STN-5ze-qom"),
                "Cannot locate destination folder for ODK Briefcase Storage. Check destination location is correct.")
 })
+
+test_that("Successful pull of encrypted forms", {
+  expect_equal(pull_remote(target= dirPath,
+                           sd = TRUE,
+                           id = "odkr_encrypted_Test",
+                           username = "validtrial",
+                           password = "zEF-STN-5ze-qom",
+                           from = "https://odk.ona.io/validtrial",
+                           to = dirPath),
+               0)
+})

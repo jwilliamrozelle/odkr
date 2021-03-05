@@ -36,3 +36,42 @@ test_that("Error for no to", {
                            overwrite = TRUE),
                "Cannot locate destination folder for ODK Briefcase Storage. Check destination location is correct.")
 })
+
+test_that("Error for incorrect pem path", {
+  expect_error(export_data(target = dirPath,
+                           id = "odkr_encrypted_Test",
+                           from = dirPath,
+                           to = dirPath,
+                           filename = "encrypted_test.csv",
+                           overwrite = TRUE,
+                           pem = "C:\\mistake\\in\\path"),
+               "The pem file you specified cannot be found. Check your file path.")
+})
+
+test_that("Successful decryption process", {
+  expect_equal(export_data(#briefcase = "ODK-Briefcase-v1.16.3",
+                           target = dirPath,
+                           id = "odkr_encrypted_Test",
+                           from = dirPath,
+                           to = dirPath,
+                           filename = "decryption_test.csv",
+                           overwrite = TRUE,
+                           pem = system.file("inst/extdata", "odkrPrivateKey.pem", package = "odkr", mustWork = TRUE)),
+                0)
+})
+
+test_that("CSV successfully written",{
+  csvFileName <- "decryption_test.csv"
+  csvFilePath <- paste0(dirPath, "\\", csvFileName)
+  export_data(#briefcase = "ODK-Briefcase-v1.16.3",
+              target = dirPath,
+              id = "odkr_encrypted_Test",
+              from = dirPath,
+              to = dirPath,
+              filename = "decryption_test.csv",
+              overwrite = TRUE,
+              group.names = FALSE,
+              pem = system.file("extdata", "odkrPrivateKey.pem", package = "odkr", mustWork = TRUE))
+  decrypted.df <- read.csv(csvFilePath, stringsAsFactors = FALSE)
+
+})
