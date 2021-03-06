@@ -42,9 +42,28 @@ test_that("Error for no to", {
 })
 
 test_that("Successful pull of encrypted forms", {
+
+  if(!file.exists(paste0(dirPath, "/odkBriefcase_latest"))) {
+    get_briefcase(dirPath)
+  }
+
+  # identify the directory that will be used in testing
+  form_name <- "odkr_encrypted_Test"
+  odkbc_test_path <- paste0(dirPath, "/ODK Briefcase Storage/forms/", form_name)
+
+  # clean up
+  ## When the test finishes, delete the variable
+  on.exit(rm(odkbc_test_path),
+          add = TRUE,
+          after = FALSE)
+  ## When the test finishes, delete the downlaoded directory
+  on.exit(unlink(odkbc_test_path, recursive = TRUE),
+          add = TRUE,
+          after = FALSE)
+
   expect_equal(pull_remote(target= dirPath,
                            sd = TRUE,
-                           id = "odkr_encrypted_Test",
+                           id = form_name,
                            username = "validtrial",
                            password = "zEF-STN-5ze-qom",
                            from = "https://odk.ona.io/validtrial",

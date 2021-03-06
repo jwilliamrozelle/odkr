@@ -110,6 +110,8 @@ pull_remote <- function(target = "",
   }
 
   ## Create command line inputs based on required specifications
+  ## On Jeff's linux server, xvfb-run prefix is required for this to work,
+  ## otherwise get an error.
   z <- paste("java -jar ", target, "/", briefcase, ".jar",
              " --pull_aggregate ",
              " --form_id ", id,
@@ -121,6 +123,12 @@ pull_remote <- function(target = "",
              " --max_http_connections ",
              if(is.null(max_http_connections)) " 8" else paste(" ", max_http_connections, sep = ""),
              sep = "")
+
+  # This was required on my headless linux server. Also requires installation of xvfb.
+  # Should test on other Linux systems, and potentially add to dependencies.
+  if (unname(Sys.info()["sysname"]) == "Linux") {
+    z <-paste0("xvfb-run ", z)
+  }
 
   ## Execute inputs on command line
   system(z)

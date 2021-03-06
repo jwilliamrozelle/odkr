@@ -5,7 +5,11 @@
 \title{Updates pre-installed ODK Briefcase \code{jar} file to the latest version
 downloaded from \url{https://opendatakit.org}.}
 \usage{
-get_briefcase(destination = "", briefcase = "odkBriefcase_latest")
+get_briefcase(
+  destination = "",
+  briefcase = "odkBriefcase_latest",
+  version_dl_url = NULL
+)
 }
 \arguments{
 \item{destination}{Path to directory where ODK Briefcase \code{.jar} file
@@ -13,6 +17,9 @@ will be downloaded into}
 
 \item{briefcase}{Filename of the downloaded ODK Briefcase \code{.jar} file.
 Default is \code{"odkBriefcase_latest"}}
+
+\item{version_dl_url}{This is the URL to a specific version of briefcase. Will
+download the most recent version of briefcase by default.}
 }
 \description{
 Updates pre-installed ODK Briefcase \code{jar} file to the latest version
