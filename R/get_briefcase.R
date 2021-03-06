@@ -7,6 +7,8 @@
 #'     will be downloaded into
 #' @param briefcase Filename of the downloaded ODK Briefcase \code{.jar} file.
 #'     Default is \code{"odkBriefcase_latest"}
+#' @param version_dl_url This is the URL to a specific version of briefcase. Will
+#'     download the most recent version of briefcase by default.
 #'
 #' @return NULL
 #'
@@ -22,7 +24,8 @@
 ################################################################################
 
 get_briefcase <- function(destination = "",
-                          briefcase = "odkBriefcase_latest") {
+                          briefcase = "odkBriefcase_latest",
+                          version_dl_url = NULL) {
 
   ## Check if appropriate Java runtime version is available
   rJava::.jinit()
@@ -37,6 +40,24 @@ get_briefcase <- function(destination = "",
     stop("No destination path for ODK Briefcase specified. Try again.", call. = TRUE)
   }
 
+  # Detect that the download is not a proper URL for briefcase
+  if(!is.null(version_dl_url) &&
+     !endsWith(version_dl_url, ".jar") &&
+     !startsWith(version_dl_url, "https://github.com/getodk/briefcase")) {
+    stop("This does not appear to be a proper URL for downloading briefcase. It should be a .jar file.", call. = TRUE)
+  }
+
+  # Warn users to change file name of download
+  if(!is.null(version_dl_url) & briefcase == "odkBriefcase_latest") {
+    warning("WARNING: You have specified a url for briefcase download, but have not changed the 'odkBriefcase_latest' label. It is recommended that you use a unique name for this version of briefcase.")
+  }
+
+  ## If a specific dl url is specified, use that, otherwise, get the most recent version of odk.
+  if(!is.null(version_dl_url)) {
+    download.url <- version_dl_url
+
+  } else {
+
   ## Get the url for latest release download of Briefcase from GitHub
   x <- curl::curl("https://api.github.com/repos/getodk/briefcase/releases/latest")
 
@@ -47,9 +68,22 @@ get_briefcase <- function(destination = "",
   z <- unlist(stringr::str_split(y, pattern = ","))
   download.url <- stringr::str_extract(string = z[stringr::str_detect(z, "browser_download_url")],
                                        pattern = " ?(f|ht)tp(s?)://(.*)[.][a-z]+")
+  }
 
-  ## Download the latest release Briefcase from GitHub
+  ## Download Briefcase from GitHub
+  ## Errors handled by tryCatch
+  tryCatch({
   download.file(url = download.url,
-                destfile = paste(destination, "/", briefcase, ".jar", sep = ""),
+                destfile = paste0(destination, "/", briefcase, ".jar"),
                 mode = "wb")
+  },
+
+  error = function(err) {
+    return(structure(err, class = "try-error"))
+    message("Download failed.")
+    if (!is.null(version_dl_url)) {
+      message("This is likely due to an error in the url.")
+    }
+
+  })
 }

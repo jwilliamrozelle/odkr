@@ -132,6 +132,11 @@ export_data <- function(target = "",
   if(pullBefore) z <- paste0(z, " --pull_before")
   if(includeGeo) z <- paste0(z, " --include_geojson")
 
+  # This was required on my headless linux server. Also requires installation of xvfb.
+  # Should test on other Linux systems, and potentially add to dependencies.
+  if (unname(Sys.info()["sysname"]) == "Linux") {
+    z <-paste0("xvfb-run ", z)
+  }
 
   ## Execute inputs on command line
   system(z)
