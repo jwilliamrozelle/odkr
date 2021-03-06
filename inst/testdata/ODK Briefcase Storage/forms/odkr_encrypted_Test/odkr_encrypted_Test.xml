@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>odkr_encrypted_Test</h:title>
+    <model odk:xforms-version="1.0.0">
+      <submission base64RsaPublicKey="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA9mz20o3ZTmvY00wwEromsRH8dVN9jcB409nJsQlB+6jaF3w6Fry8s+54dYInryNQ8BfvbCORqGgVU+5e1979JfoHqqwsT05EGBwhQ381fcTTLGMmP5vB3kXisYKnlPM2DhWpmZkINOo200Lb4wTT2hzmCEVuXRhBK7k+wDtU9sPUCwDS9gd0+keriTPk6sBqWg5gRBYcNt0kgLkHMjfoHodVztq/N3djUMvwSirJc4O2kiRkO6Y6v6ngiaj7y9/d+OE+RTmntsmebPlSlWx9kXLwWh7umsqC8Y8jcn3Lk9G1otHl8F89LU3J+4RDxCoDN2KTIKR5M9SFC5nnThwSfwIDAQAB"/>
+      <instance>
+        <data id="odkr_encrypted_Test" version="final_version">
+          <formhub>
+            <uuid/>
+          </formhub>
+          <start/>
+          <end/>
+          <today/>
+          <username/>
+          <deviceid/>
+          <phonenumber/>
+          <select1_q/>
+          <text_q/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </data>
+      </instance>
+      <bind jr:preload="timestamp" jr:preloadParams="start" nodeset="/data/start" type="dateTime"/>
+      <bind jr:preload="timestamp" jr:preloadParams="end" nodeset="/data/end" type="dateTime"/>
+      <bind jr:preload="date" jr:preloadParams="today" nodeset="/data/today" type="date"/>
+      <bind jr:preload="property" jr:preloadParams="username" nodeset="/data/username" type="string"/>
+      <bind jr:preload="property" jr:preloadParams="deviceid" nodeset="/data/deviceid" type="string"/>
+      <bind jr:preload="property" jr:preloadParams="phonenumber" nodeset="/data/phonenumber" type="string"/>
+      <bind nodeset="/data/select1_q" required="false()" type="string"/>
+      <bind nodeset="/data/text_q" required="false()" type="string"/>
+      <bind jr:preload="uid" nodeset="/data/meta/instanceID" readonly="true()" type="string"/>
+      <bind calculate="'8562ab4d1271415db3f24095dd81a8f0'" nodeset="/data/formhub/uuid" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <select1 ref="/data/select1_q">
+      <label>What is your favorite color?</label>
+      <item>
+        <label>Red</label>
+        <value>1</value>
+      </item>
+      <item>
+        <label>Green</label>
+        <value>2</value>
+      </item>
+      <item>
+        <label>Blue</label>
+        <value>3</value>
+      </item>
+    </select1>
+    <input ref="/data/text_q">
+      <label>Write something clever!</label>
+    </input>
+  </h:body>
+</h:html>
