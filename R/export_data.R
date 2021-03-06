@@ -110,6 +110,7 @@ export_data <- function(target = "",
       stop("The pem file you specified cannot be found. Check your file path.", call. = TRUE)
     } else {
       message("Using the pem key provided to decrypt")
+      message("WARNING: ODK Briefcase does not always reliably decrypt forms. If failing to decrypt, try another version of ODK.")
     }
   }
 
