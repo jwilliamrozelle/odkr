@@ -5,7 +5,8 @@
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Travis](https://img.shields.io/travis/rapidsurveys/odkr.svg?branch=master)](https://travis-ci.org/rapidsurveys/odkr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rapidsurveys/odkr?branch=master&svg=true)](https://ci.appveyor.com/project/rapidsurveys/odkr)
-[![codecov](https://codecov.io/gh/rapidsurveys/odkr/branch/master/graph/badge.svg)](https://codecov.io/gh/rapidsurveys/odkr)
+<!--[![codecov](https://codecov.io/gh/rapidsurveys/odkr/branch/master/graph/badge.svg)](https://codecov.io/gh/rapidsurveys/odkr) !!!-->
+[![codecov](https://codecov.io/gh/jwilliamrozelle/odkr/branch/add-tests-for-new-options/graph/badge.svg)](https://codecov.io/gh/jwilliamrozelle/odkr)
 [![CodeFactor](https://www.codefactor.io/repository/github/rapidsurveys/odkr/badge)](https://www.codefactor.io/repository/github/rapidsurveys/odkr)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1170514.svg)](https://doi.org/10.5281/zenodo.1170514)
 <!-- badges: end -->
